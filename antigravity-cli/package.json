@@ -1,0 +1,14 @@
+{
+  "name": "@sibshahz/antigravity-init",
+  "version": "1.0.2",
+  "description": "Initialize antigravity environment",
+  "bin": {
+    "antigravity-init": "./bin/cli.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.3.4"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
