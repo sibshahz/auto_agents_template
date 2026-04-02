@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-const fs = require('fs-extra');
-const path = require('path');
+const fs = require("fs-extra");
+const path = require("path");
 
 async function main() {
   const cwd = process.cwd();
-  const templateDir = path.join(__dirname, '..', 'template');
-  const targetAppBuild = path.join(cwd, 'app_build');
+  const templateDir = path.join(__dirname, "..", "template");
+  const targetAppBuild = path.join(cwd, "app_build");
 
   console.log(`🚀 Initializing Antigravity in ${cwd}...`);
 
@@ -16,14 +16,18 @@ async function main() {
 
     // 2. Identify template folders and files (excluding .git)
     const itemsToCopy = await fs.readdir(templateDir);
-    const filteredItems = itemsToCopy.filter(item => item !== '.git' && item !== 'antigravity-cli');
+    const filteredItems = itemsToCopy.filter(
+      (item) => item !== ".git" && item !== "antigravity-cli",
+    );
 
     // 3. Copy/Merge template items into cwd
-    console.log('📦 Merging template folders: .agents, app_build, production_artifacts...');
+    console.log(
+      "📦 Merging template folders: .agents, app_build, production_artifacts...",
+    );
     for (const item of filteredItems) {
       const srcItem = path.join(templateDir, item);
       const destItem = path.join(cwd, item);
-      
+
       // Copy recursively, merging directories
       await fs.copy(srcItem, destItem, { overwrite: true });
     }
@@ -32,18 +36,22 @@ async function main() {
     // Except app_build itself and maybe some hidden/node_modules if we want to be safe
     // The requirement says "move the complete code repo... into app_build folder"
     console.log(`🚚 Moving project files into app_build...`);
-    
+
     const allFiles = await fs.readdir(cwd);
     for (const file of allFiles) {
-      if (file === 'app_build') continue; // Don't move app_build into itself
-      
+      if (["app_build", ".agents", "production_artifacts"].includes(file))
+        continue;
+
       const srcPath = path.join(cwd, file);
       const destPath = path.join(targetAppBuild, file);
 
       // Move with merge behavior if it's a directory
       // fs-extra move() throws if dest exists, so we merge
       if (await fs.pathExists(destPath)) {
-        if ((await fs.stat(srcPath)).isDirectory() && (await fs.stat(destPath)).isDirectory()) {
+        if (
+          (await fs.stat(srcPath)).isDirectory() &&
+          (await fs.stat(destPath)).isDirectory()
+        ) {
           // Merge directories
           await fs.copy(srcPath, destPath, { overwrite: true });
           await fs.remove(srcPath);
@@ -57,9 +65,11 @@ async function main() {
       }
     }
 
-    console.log('✅ Initialization complete! All files moved into app_build.');
+    console.log(
+      "✅ Initialization complete! Root folder now contains: app_build, .agents, and production_artifacts.",
+    );
   } catch (err) {
-    console.error('❌ Error during initialization:', err);
+    console.error("❌ Error during initialization:", err);
     process.exit(1);
   }
 }
