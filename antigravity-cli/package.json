@@ -1,6 +1,6 @@
 {
   "name": "@sibshahz/antigravity-init",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Initialize antigravity environment",
   "bin": {
     "antigravity-init": "./bin/cli.js"

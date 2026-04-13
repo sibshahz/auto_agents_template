@@ -1,49 +1,65 @@
-# Antigravity Initialization Tool
+# 🚀 Antigravity Initialization Tool
 
-`antigravity-init` is a CLI tool designed to quickly set up your project environment and prepare it for Antigravity-assisted development.
+`@sibshahz/antigravity-init` is a specialized CLI utility designed to seamlessly integrate the Antigravity agentic infrastructure into any existing project.
 
-## What it does
+## ✨ Core Features
 
-When you run `npx @sibshahz/antigravity-init` in your project folder, the following happens:
+- **⚡️ Instant Injection**: Injects the complete `.agents/` directory structure, including core logic, skills, and workflows, directly into your project root.
+- **🛡️ Conflict-Free Merging**: Intelligently merges template folders. If a file conflict is detected, the tool **always prioritizes your existing files**, ensuring no custom workflows or local edits are ever overwritten.
+- **📂 Structure Preservation**: Unlike standard boilerplates, this tool maintains your project's integrity. It **never moves your files** or forces a specific directory hierarchy on your existing codebase.
+- **🧩 Minimalist Footprint**: Only adds the essential agentic layer, keeping your root directory clean and professional.
 
-1.  **Injects Core Templates**: It adds (and merges, if they already exist) the following folders into your project's root:
-    - `.agents/`: Core agent logic and workflows.
-    - `app_build/`: Build and execution environment.
-    - `production_artifacts/`: Designated storage for production-ready outputs.
-2.  **Moves Your Project**: To compartmentalize your code, it automatically moves the complete contents of your project repository (src, package.json, etc.) into the newly merged `app_build/` folder.
+---
 
-## How to use it
+## 🚀 Getting Started
 
-### Usage from npm (recommended)
+### Quick Start (NPM)
 
-If the package is published to npm, simply run this in your project's root:
-
-```bash
-npx antigravity-init
-```
-
-### Local Usage (during development)
-
-If you have the package locally, run it by pointing to the package directory:
+Run the following command in the root of your project:
 
 ```bash
-npx /path/to/antigravity-cli
+npx @sibshahz/antigravity-init
 ```
 
-## Folder Structure After Initialization
+### Local Development
 
-Your project's root will look like this:
+If you are working on the CLI itself, you can test it locally:
+
+```bash
+# From your project root
+npx /absolute/path/to/antigravity-cli
+```
+
+---
+
+## 📁 Post-Initialization Structure
+
+After running the tool, your project root will remain unchanged, with the addition of the `.agents` layer:
 
 ```text
 /your-project-root
-└── app_build/
-    ├── .agents/
-    ├── production_artifacts/
-    ├── [YOUR ORIGINAL CODEBASE]
-    └── README.md
+├── .agents/               # Antigravity Logic & Workflows
+│   ├── skills/            # Custom agent capabilities
+│   └── workflows/         # Autonomous process definitions
+├── [YOUR SOURCE CODE]     # Your original files remain here
+├── package.json
+└── ...
 ```
 
-## Requirements
+---
 
-- Node.js version 14 or higher.
-- `fs-extra` (installed automatically via `npx`).
+## 🛠 Requirements & Compatibility
+
+- **Node.js**: Version 14.x or higher.
+- **Filesystem**: Requires write permissions in the target directory.
+- **Dependencies**: Automatically manages `fs-extra` via npx.
+
+---
+
+## 📝 Note on Scoped Publishing
+
+If you are publishing this package for the first time, ensure you use the public access flag:
+
+```bash
+npm publish --access public
+```
